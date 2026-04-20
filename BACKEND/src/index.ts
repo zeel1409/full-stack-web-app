@@ -32,11 +32,14 @@ app.use('/api/transcripts', transcriptRoutes);
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-  console.log(`Frontend URL: ${FRONTEND_URL}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-});
+export default app;
+
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Frontend URL: ${FRONTEND_URL}`);
+  });
+}
 
 process.on('unhandledRejection', (err) => {
   console.error('Unhandled rejection:', err);
